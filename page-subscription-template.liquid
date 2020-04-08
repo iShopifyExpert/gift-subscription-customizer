@@ -1,0 +1,225 @@
+<link href="{{'adamtheme.css' | asset_url}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{'codehouse.css' | asset_url}}" rel="stylesheet" type="text/css" media="all" />
+
+<div class="layout__off-canvas__viewport">
+  <div class="layout__off-canvas__main-content">
+    <main role="main" class="layout__main-content">
+      <section class="image-bg overlay pt240 pb240 pt-xs-180 pb-xs-180">
+        <div class="background-image-holder" style="background: url({{'main-banner.png' | asset_url}});">
+          <img alt="image" class="background-image3" src="{{'main-banner.png' | asset_url}}" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <h1 class="advpackcervo text-center"><span >{{section.settings.Banner_text}}</span></h1>
+              <h4 class="advpackcervo5 text-center">{{section.settings.Banner_text2}}</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="how-to-sub">
+        <div class="container how-to-subscribe">
+          <div class="text-center">
+            <h1 class="advpackcervo2 text-center">{{section.settings.subscribe}}</h1>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="sub-img"><img src="{{section.settings.img_one | img_url: '200x200_cropped'}}"></div>
+              <div class="text-center"><p>{{section.settings.ab1}}</p></div>
+            </div>
+            
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="sub-img"><img src="{{section.settings.img_two | img_url: '200x200_cropped'}}"></div>
+              <div class="text-center"><p>{{section.settings.ab2}}</p></div>
+            </div>
+            
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="sub-img"><img src="{{section.settings.img_three | img_url: '200x200_cropped'}}"></div>
+              <div class="text-center"><p>{{section.settings.ab3}}</p></div>
+            </div>
+            
+          </div>
+        
+        </div>
+      </section>
+      <section class="pb0 twobyadventure">
+        <div class="container horzlinetwo">
+          <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 mt40">
+            <br>
+            <p class="mb64">{{section.settings.main-para}}</p>
+          </div>
+          <div class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6" style="padding:0">
+            <div class="horizlinetop2 hlttwo"></div>
+          </div>
+          <div class="hidden-xs linesheader col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+            <div class="linehorz"></div>
+            <div class="linevertL"></div>
+            <div class="linevertR"></div>
+          </div>
+          <div class="img-block col-xs-12 col-sm-6 col-md-6 text-center">
+            <h1 class="advpackcervo2 text-center">{{section.settings.heading_one}}</h1>
+            <a href="{{section.settings.btn1_url}}" class="buynowbutton2">{{section.settings.btn1_txt}}</a>
+            <br><br>
+            <p class="text-center">{{section.settings.para_one}}</p>
+            <p class="text-center"><strong>{{section.settings.para_two}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.para_three}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.para_four}}</strong></p>
+          </div>
+          <div class="img-block col-xs-12 col-sm-6 col-md-6 text-center">
+            <h1 class="advpackcervo2 text-center">{{section.settings.heading_one}}</h1>
+            <a href="{{section.settings.btn2_url}}" class="buynowbutton2">{{section.settings.btn2_txt}}</a>
+            <br><br>
+            <p class="text-center">{{section.settings.paraa_one}}</p>
+            <p class="text-center"><strong>{{section.settings.paraa_two}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.paraa_three}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.para_four}}</strong></p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Subscription Page",
+    "settings": [
+		{
+		"type": "text",
+		"id": "Banner_text",
+		"label": "Banner Text",
+		"default": "Subscribe & Save"
+		},
+		{
+		"type": "text",
+		"id": "Banner_text2",
+		"label": "Banner Text",
+		"default": "Pur-Cold Pressed delivered."
+		},
+		{
+		"type": "text",
+		"id": "subscribe",
+		"label": "Subscribe Heading",
+		"default": "How to Subscribe"
+		},
+		{
+		"type": "image_picker",
+		"id": "img_one",
+		"label": "First Step Image"
+		},
+		{
+		"type": "textarea",
+		"id": "ab1",
+		"label": "Step 1"
+		},
+		{
+		"type": "image_picker",
+		"id": "img_two",
+		"label": "Second Step Image"
+		},
+		{
+		"type": "textarea",
+		"id": "ab2",
+		"label": "Step 2"
+		},
+		{
+		"type": "image_picker",
+		"id": "img_three",
+		"label": "Third Step Image"
+		},
+		{
+		"type": "textarea",
+		"id": "ab3",
+		"label": "Step 1"
+		},
+		{
+		"type": "textarea",
+		"id": "main-para",
+		"label": "Description",
+		"default": "We’ve created a much easier way for you to get that juice fix. Our subscription service allows you to select your fave PUR product and frequency so a freshly pressed pack of juice appears at your door when you want it."
+		},
+		{
+		"type": "text",
+		"id": "heading_one",
+		"label": "Heading 1",
+		"default": "Subscribe to Verve"
+		},
+		{
+		"type": "text",
+		"id": "btn1_txt",
+		"label": "Button 1 Text",
+		"default": "GET STARTED"
+		},
+		{
+		"type": "url",
+		"id": "btn1_url",
+		"label": "Button 1 Link"
+		},
+		{
+		"type": "textarea",
+		"id": "para_one",
+		"label": "About 1",
+		"default": "Never run out of coffee again."
+		},
+		{
+		"type": "textarea",
+		"id": "para_two",
+		"label": "About 2",
+		"default": "Customize your order"
+		},
+		{
+		"type": "textarea",
+		"id": "para_three",
+		"label": "About 3",
+		"default": "Set up a recurring payment"
+		},
+		{
+		"type": "textarea",
+		"id": "para_four",
+		"label": "About 4",
+		"default": "Ship on your schedule"
+		},
+		{
+		"type": "text",
+		"id": "heading_two",
+		"label": "Heading 2",
+		"default": "SEND A GIFT"
+		},
+		{
+		"type": "text",
+		"id": "btn2_txt",
+		"label": "Button 2 Text",
+		"default": "GET STARTED"
+		},
+		{
+		"type": "url",
+		"id": "btn2_url",
+		"label": "Button 2 Link"
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_one",
+		"label": "About 1",
+		"default": "Treat your coffee-loving friends."
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_two",
+		"label": "About 2",
+		"default": "Customize their order"
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_three",
+		"label": "About 3",
+		"default": "Pay upfront"
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_four",
+		"label": "About 4",
+		"default": "Include a gift note"
+		}
+]
+  }
+{% endschema %}

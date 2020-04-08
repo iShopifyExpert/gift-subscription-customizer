@@ -1,0 +1,149 @@
+<link href="{{'adamtheme.css' | asset_url}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{'codehouse.css' | asset_url}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{'custom.css' | asset_url}}" rel="stylesheet" type="text/css" media="all">
+
+<div class="productSubsBox">
+  <div class="productSubsEntryBox inner">
+    <div class="productSubsEntry select-product" data-option="option1">
+      <h4><i>1</i>Pick Your Product</h4>
+      <ul class="optsList">
+        {% for product in collection.products %}
+        <li class="selector" data-id="selected-{{product.id}}" data-val="{{product.title}}">
+          <a href="#selected-{{product.id}}" class="pro-button">
+            <i style="background: url({{ product.featured_image | img_url: 'large' }});"></i>
+            <strong>{{product.title | remove: ' - Gift Subscription'}}</strong>
+            <small>Select</small>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% for product in collection.products %}{% assign count = forloop.index | plus: 1 %}
+    <div class="variants-grid" id="selected-{{product.id}}" style="display: none;">
+      {%assign product-id = product.id | prepend: 'AddToCartForm-'%}
+      {% form 'product', product, data-productid: product.id, id: product-id %}<!-- Begin ReCharge code -->
+      {% if product.available %}{% include 'subscription-product' %}{% endif %}<!-- End ReCharge code -->
+      <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="needsclick product-single__variants original-select no-js" autocomplete="off">{% for variant in product.variants %}{% if variant.available %}
+        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-title="{{ variant.title }}" data-orignalvalue="{{ variant.id }}" value="{{ variant.metafields.subscriptions.discount_variant_id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>{% else %}
+        <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>{% endif %}{% endfor %}
+      </select>
+      {% for option in product.options %}{% assign count = forloop.index | plus: 1 %}{% assign option_index = forloop.index0 %}{% assign option_index_next = forloop.index0 | plus: 1 %}
+      <div class="productSubsEntry select-variant" data-id="selected-{{product.id}}-{{count}}-{{option_index_next}}" data-option="option{{count}}"{% if forloop.first %}{% else %} style="display: none;"{% endif %}>
+        <h4><i>{{count}}</i>{{ option | replace: 'Quantity','Pick Quantity' }}</h4>
+        <ul class="optsList">{% assign values = '' %}{% for variant in product.variants %}{% assign value = variant.options[option_index] %}{% unless values contains value %}{% assign values = values | join: ',' %}{% assign values = values | append: ',' | append: value %} {% assign values = values | split: ',' %}
+          <li class="selector" data-val="{{ variant.metafields.subscriptions.discount_variant_id }}" data-price="{{ variant.price | money}}">
+            <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+              <i style="background: url({{ variant.image | img_url: 'large' }});"></i>
+              <strong>{{ value | escape }}</strong>
+              <small>Select</small>
+            </a>
+          </li>{% endunless %}{% endfor %}
+        </ul>
+      </div>
+      {% if forloop.last%}
+      <div class="productSubsEntry select-frequency" data-id="selected-{{product.id}}-finalize" id="selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" style="display:none;">
+      <h4><i>{{count | plus: 1}}</i>Choose Frequency</h4>
+      <ul class="optsList">
+        <li class="frequency 2week" data-val="2">
+          <a href="#selected-{{product.id}}-finalize" class="pro-button">
+            <i></i><strong>Bi-Weekly</strong><small>Select</small>
+          </a>
+        </li>
+        <li class="frequency 4weeks" data-val="4">
+          <a href="#selected-{{product.id}}-finalize" class="pro-button">
+            <i></i><strong>Monthly</strong><small>Select</small>
+          </a>
+        </li>
+      </ul>
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div class="productSubsEntry inner" id="selected-{{product.id}}-finalize" style="display:none;">
+        <h4><i>4</i> Order Summary</h4>
+        <div class="manageWrap">
+          <div class="manageBox">
+            <ul>
+              <li class="aa opt1 selector selector  croasterschoiceblend selected">
+                <dl><i></i><dt><strong>Pick Your Product</strong></dt><dd><a href="#" class="option1">Change Product</a></dd></dl>
+              </li>
+              <li class="aa opt2 selector selector  ctwo12ozbags selected">
+                <dl><i></i><dt><strong>Pick Quantity</strong></dt><dd><a href="#" class="option2">Change Days/Quantity</a></dd></dl>
+              </li>
+              <li class="aa opt5 selector frequency  week2weeks selected">
+                <dl><i></i><dt><strong>Choose Frequency</strong></dt><dd><a href="#" class="option5">Change Frequency</a></dd></dl>
+              </li>
+            </ul>
+          </div>
+          <div class="totalBox">
+            <dl><dt>Order Price:</dt>
+              <dd><span class="total-amount"><em class="t1 money">{{product.price | money}}</em></span>
+              <small class="gift-subscription-shipment" style="display: none;">Per Shipment</small></dd>
+            </dl>
+            <dl style="display:none">
+              <dt>Tax:</dt>
+              <dd>$<em class="t2">0.00</em></dd>
+            </dl>
+            <dl>
+              <dt>Shipping:</dt>
+              <dd><em>FREE</em><em class="t3" style="display: none">0.00</em></dd>
+            </dl>
+            <hr>
+            <dl class="total">
+              <dt>Total:</dt><dd><span><em class="t4 money">{{product.price | money}}</em></span><small class="subsMe">Per Shipment</small></dd></dl>
+            <button type="submit" class="subsMainBtn">Add to Cart</button>
+            <small class="subsMe2">You'll be able to manage this subscription and change or cancel at any time.</small>
+          </div>
+        </div>
+      </div>
+      {% endform %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
+<script type="text/javascript">
+  var scroll = new SmoothScroll('a[href*="#"]', { speed: 800, speedAsDuration: true, offset: 100, updateURL: false });
+</script>
+<script type="text/javascript">
+  $('.select-product .optsList li').click(function() {
+    var selectedid = $(this).data('id');
+    $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
+    $(this).addClass('selected').find('small').text('Selected!');
+    $('.variants-grid').removeClass('selected').hide();
+    $('#'+ selectedid).addClass('selected').show();
+  });
+  $('.select-variant .optsList li').click(function() {
+    var selectedvid = $(this).parents('.productSubsEntry').next('.productSubsEntry');
+    var selectednid = $(this).data('val');
+    var selectedprice = $(this).data('price');
+    if(selectedvid.length > 0) {
+      $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
+      $(this).addClass('selected').find('small').text('Selected!');
+      selectedvid.addClass('selected').show();
+      $(this).parents('.variants-grid').find('select[name=id]').val(selectednid).attr('selected', true).trigger('change');
+    }
+  });
+  $('.select-frequency .optsList li').click(function() {
+    var selectedfid = $(this).parents('.productSubsEntry').data('id');
+    $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
+    $(this).addClass('selected').find('small').text('Selected!');
+    $('#'+ selectedfid).addClass('selected').show();
+    $('.rc_select__frequency').val($(this).data('val')).trigger('change');
+  });
+</script>
+<style>
+#rc_container, .product-single__variants {
+    display: none !important;
+    margin: 0 auto !important;
+    width: 250px !important;
+}
+button.subsMainBtn {
+    margin-bottom: 25px;
+}
+</style>
+{% schema %}
+  {
+    "name": "Gift Subscription",
+    "settings": []
+  }
+{% endschema %}

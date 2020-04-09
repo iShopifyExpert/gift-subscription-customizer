@@ -46,12 +46,12 @@
       <ul class="optsList">
         <li class="frequency 2week" data-val="2">
           <a href="#selected-{{product.id}}-finalize" class="pro-button">
-            <i></i><strong>Bi-Weekly</strong><small>Select</small>
+            <i style="background: url({{'2weeks.jpg' | asset_url}});"></i><strong>Bi-Weekly</strong><small>Select</small>
           </a>
         </li>
         <li class="frequency 4weeks" data-val="4">
           <a href="#selected-{{product.id}}-finalize" class="pro-button">
-            <i></i><strong>Monthly</strong><small>Select</small>
+            <i style="background: url({{'4weeks.jpg' | asset_url}});"></i><strong>Monthly</strong><small>Select</small>
           </a>
         </li>
       </ul>
@@ -137,6 +137,11 @@
 }
 button.subsMainBtn {
     margin-bottom: 25px;
+}
+a.pro-button {
+    text-decoration: blink;
+    display: block;
+    width: 100%;
 }
 </style>
 {% schema %}

@@ -24,14 +24,14 @@
       {% form 'product', product, data-productid: product.id, id: product-id %}<!-- Begin ReCharge code -->
       {% if product.available %}{% include 'subscription-product' %}{% endif %}<!-- End ReCharge code -->
       <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="needsclick product-single__variants original-select no-js" autocomplete="off">{% for variant in product.variants %}{% if variant.available %}
-        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-title="{{ variant.title }}" data-orignalvalue="{{ variant.id }}" value="{{ variant.metafields.subscriptions.discount_variant_id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>{% else %}
+        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-title="{{ variant.title }}" data-orignalvalue="{{ variant.metafields.subscriptions.discount_variant_id }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>{% else %}
         <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>{% endif %}{% endfor %}
       </select>
       {% for option in product.options %}{% assign count = forloop.index | plus: 1 %}{% assign option_index = forloop.index0 %}{% assign option_index_next = forloop.index0 | plus: 1 %}
       <div class="productSubsEntry select-variant" data-id="selected-{{product.id}}-{{count}}-{{option_index_next}}" data-option="option{{count}}"{% if forloop.first %}{% else %} style="display: none;"{% endif %}>
         <h4><i>{{count}}</i>{{ option | replace: 'Quantity','Pick Quantity' }}</h4>
         <ul class="optsList">{% assign values = '' %}{% for variant in product.variants %}{% assign value = variant.options[option_index] %}{% unless values contains value %}{% assign values = values | join: ',' %}{% assign values = values | append: ',' | append: value %} {% assign values = values | split: ',' %}
-          <li class="selector" data-val="{{ variant.metafields.subscriptions.discount_variant_id }}" data-price="{{ variant.price | money}}">
+          <li class="selector" data-val="{{ variant.id }}" data-price="{{ variant.price | money}}">
             <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
               <i style="background: url({{ variant.image | img_url: 'large' }});"></i>
               <strong>{{ value | escape }}</strong>
@@ -103,8 +103,6 @@
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
 <script type="text/javascript">
   var scroll = new SmoothScroll('a[href*="#"]', { speed: 800, speedAsDuration: true, offset: 100, updateURL: false });
-</script>
-<script type="text/javascript">
   $('.select-product .optsList li').click(function() {
     var selectedid = $(this).data('id');
     $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
@@ -120,7 +118,7 @@
       $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
       $(this).addClass('selected').find('small').text('Selected!');
       selectedvid.addClass('selected').show();
-      $(this).parents('.variants-grid').find('select[name=id]').val(selectednid).attr('selected', true).trigger('change');
+      $(this).parents('.variants-grid').find('select[data-productid=4967452409900]').val(selectednid).attr('selected', true).trigger('change');
     }
   });
   $('.select-frequency .optsList li').click(function() {

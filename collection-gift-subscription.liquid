@@ -8,7 +8,7 @@
       <h4><i>1</i>Pick Your Product</h4>
       <ul class="optsList">
         {% for product in collection.products %}
-        <li class="selector" data-id="selected-{{product.id}}" data-val="{{product.title}}">
+        <li class="selector" data-id="selected-{{product.id}}" data-val="{{product.title}}" data-image="{{ product.featured_image | img_url: 'large' }}">
           <a href="#selected-{{product.id}}" class="pro-button">
             <i style="background: url({{ product.featured_image | img_url: 'large' }});"></i>
             <strong>{{product.title | remove: ' - Gift Subscription'}}</strong>
@@ -31,7 +31,7 @@
       <div class="productSubsEntry select-variant" data-id="selected-{{product.id}}-{{count}}-{{option_index_next}}" data-option="option{{count}}"{% if forloop.first %}{% else %} style="display: none;"{% endif %}>
         <h4><i>{{count}}</i>{{ option | replace: 'Quantity','Pick Quantity' }}</h4>
         <ul class="optsList">{% assign values = '' %}{% for variant in product.variants %}{% assign value = variant.options[option_index] %}{% unless values contains value %}{% assign values = values | join: ',' %}{% assign values = values | append: ',' | append: value %} {% assign values = values | split: ',' %}
-          <li class="selector" data-val="{{ variant.id }}" data-price="{{ variant.price | money}}">
+          <li class="selector" data-val="{{ variant.id }}" data-price="{{ variant.price | money}}" data-image="{{ variant.image | img_url: 'large' }}">
             <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
               <i style="background: url({{ variant.image | img_url: 'large' }});"></i>
               <strong>{{ value | escape }}</strong>
@@ -44,12 +44,12 @@
       <div class="productSubsEntry select-frequency" data-id="selected-{{product.id}}-finalize" id="selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" style="display:none;">
       <h4><i>{{count | plus: 1}}</i>Choose Frequency</h4>
       <ul class="optsList">
-        <li class="frequency 2week" data-val="2">
+        <li class="frequency 2week" data-val="2" data-image="{{'2weeks.jpg' | asset_url}}">
           <a href="#selected-{{product.id}}-finalize" class="pro-button">
             <i style="background: url({{'2weeks.jpg' | asset_url}});"></i><strong>Bi-Weekly</strong><small>Select</small>
           </a>
         </li>
-        <li class="frequency 4weeks" data-val="4">
+        <li class="frequency 4weeks" data-val="4" data-image="{{'4weeks.jpg' | asset_url}}">
           <a href="#selected-{{product.id}}-finalize" class="pro-button">
             <i style="background: url({{'4weeks.jpg' | asset_url}});"></i><strong>Monthly</strong><small>Select</small>
           </a>
@@ -63,14 +63,14 @@
         <div class="manageWrap">
           <div class="manageBox">
             <ul>
-              <li class="aa opt1 selector selector  croasterschoiceblend selected">
-                <dl><i></i><dt><strong>Pick Your Product</strong></dt><dd><a href="#" class="option1">Change Product</a></dd></dl>
+              <li class="aa opt1 selector selector selected" id="selected-{{product.id}}-product">
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Your Product</strong></dt><dd><a href="#" class="option1">Change Product</a></dd></dl>
               </li>
-              <li class="aa opt2 selector selector  ctwo12ozbags selected">
-                <dl><i></i><dt><strong>Pick Quantity</strong></dt><dd><a href="#" class="option2">Change Days/Quantity</a></dd></dl>
+              <li class="aa opt2 selector selector selected"  id="selected-{{product.id}}-quantity">
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Quantity</strong></dt><dd><a href="#" class="option2">Change Days/Quantity</a></dd></dl>
               </li>
-              <li class="aa opt5 selector frequency  week2weeks selected">
-                <dl><i></i><dt><strong>Choose Frequency</strong></dt><dd><a href="#" class="option5">Change Frequency</a></dd></dl>
+              <li class="aa opt5 selector frequency selected" id="selected-{{product.id}}-frequency">
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Choose Frequency</strong></dt><dd><a href="#" class="option5">Change Frequency</a></dd></dl>
               </li>
             </ul>
           </div>
@@ -108,7 +108,8 @@
     $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
     $(this).addClass('selected').find('small').text('Selected!');
     $('.variants-grid').removeClass('selected').hide();
-    $('#'+ selectedid).addClass('selected').show();
+    $('#'+selectedid).addClass('selected').show();
+    $('#'+selectedid+'-product i').css('background-image', 'url('+$(this).data('image')+')');
   });
   $('.select-variant .optsList li').click(function() {
     var selectedvid = $(this).parents('.productSubsEntry').next('.productSubsEntry');
@@ -118,14 +119,14 @@
       $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
       $(this).addClass('selected').find('small').text('Selected!');
       selectedvid.addClass('selected').show();
-      $(this).parents('.variants-grid').find('select[data-productid=4967452409900]').val(selectednid).attr('selected', true).trigger('change');
+      $(this).parents('.variants-grid').find('select[data-productid]').val(selectednid).attr('selected', true).trigger('change');
     }
   });
   $('.select-frequency .optsList li').click(function() {
     var selectedfid = $(this).parents('.productSubsEntry').data('id');
     $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
     $(this).addClass('selected').find('small').text('Selected!');
-    $('#'+ selectedfid).addClass('selected').show();
+    $('#'+selectedfid).addClass('selected').show();
     $('.rc_select__frequency').val($(this).data('val')).trigger('change');
   });
 </script>

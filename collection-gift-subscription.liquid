@@ -4,7 +4,7 @@
 
 <div class="productSubsBox">
   <div class="productSubsEntryBox inner">
-    <div class="productSubsEntry select-product" data-option="option1">
+    <div class="productSubsEntry select-product" id="option1">
       <h4><i>1</i>Pick Your Product</h4>
       <ul class="optsList">
         {% for product in collection.products %}
@@ -40,8 +40,55 @@
           </li>{% endunless %}{% endfor %}
         </ul>
       </div>
+      {% if product.title contains 'Custom Juice Pack' and forloop.last %}
+      <div class="productSubsEntry select-juices" data-id="selected-{{product.id}}-frequency" id="selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" style="display:none;">
+      <h4><i>{{count | plus: 1}}</i>Choose 6 Flavors</h4>
+      <ul class="optsList">
+        <li class="juices" data-val="Sunny Citrus" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/SunnyCitrus_V2.png?v=1581339704);"></i><strong>Sunny Citrus</strong><p>Carrot, Apple, Pineapple, Turmeric, Lemon, Ginger</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="PUR Greens" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/greens_V2.png?v=1581339704);"></i><strong>PUR Greens</strong><p>Cucumber, Kale, Celery, Apple, Lemon, Ginger</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Raw Red" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/Blush_Blend_V2.png?v=1581339703);"></i><strong>Raw Red</strong><p>Cucumber, Carrot, Beet, Apple, Lemon, Ginger</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Blue Chia" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/PUR_Blue_Majik_V2.png?v=1581339703);"></i><strong>Blue Chia</strong><p>Pineapple, Apple, Blue Spirulina, Chia Seeds</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Pineapple Mint" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/Pineapple_Mint_V2.png?v=1581339704);"></i><strong>Pineapple Mint</strong><p>Pineapple, Apple, Mint</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Blue Lemonade" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/bluelemonade_V2.png?v=1581339703);"></i><strong>Blue Lemonade</strong><p>Lemon, Blue Majik Spirulina, Agave, Filtered H20</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Charcoal Lemonade" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/CharcoalLemon_V2.png?v=1581339703);"></i><strong>Charcoal Lemonade</strong><p>Lemon, Activated Charcoal, Ginger, Agave, Filtered H20</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Turmeric Lemonade" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="{%comment%}#selected-{{product.id}}-frequency{%endcomment%}#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/TurmericLemon_V2.png?v=1581339704);"></i><strong>Turmeric Lemonade</strong><p>Lemon, Turmeric, Ginger, Agave, Filtered H20</p><small>Select</small>
+          </a>
+        </li>
+      </ul>
+      </div>
+      {% endif %}
       {% if forloop.last%}
-      <div class="productSubsEntry select-frequency" data-id="selected-{{product.id}}-finalize" id="selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" style="display:none;">
+      <div class="productSubsEntry select-frequency" data-id="selected-{{product.id}}-finalize" id="{% if product.title contains 'Custom Juice Pack' %}selected-{{product.id}}-frequency{%else%}selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}{%endif%}" style="display:none;">
       <h4><i>{{count | plus: 1}}</i>Choose Frequency</h4>
       <ul class="optsList">
         <li class="frequency 2week" data-val="2" data-image="{{'2weeks.jpg' | asset_url}}">
@@ -64,12 +111,12 @@
           <div class="manageBox">
             <ul>
               <li class="aa opt1 selector selector selected" id="selected-{{product.id}}-product">
-                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Your Product</strong></dt><dd><a href="#" class="option1">Change Product</a></dd></dl>
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Your Product</strong></dt><dd><a href="#option1" class="option1">Change Product</a></dd></dl>
               </li>
               <li class="aa opt2 selector selector selected"  id="selected-{{product.id}}-quantity">
                 <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Quantity</strong></dt><dd><a href="#" class="option2">Change Days/Quantity</a></dd></dl>
               </li>
-              <li class="aa opt5 selector frequency selected" id="selected-{{product.id}}-frequency">
+              <li class="aa opt5 selector frequency selected" id="selected-{{product.id}}-frequencyy">
                 <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Choose Frequency</strong></dt><dd><a href="#" class="option5">Change Frequency</a></dd></dl>
               </li>
             </ul>
@@ -115,6 +162,8 @@
     var selectedvid = $(this).parents('.productSubsEntry').next('.productSubsEntry');
     var selectednid = $(this).data('val');
     var selectedprice = $(this).data('price');
+    //$('#'+selectedid+'-quantity i').css('background-image', 'url('+$(this).data('image')+')');
+    //$('#'+selectednid+'-product a').attr('href', '#'+selectednid);
     if(selectedvid.length > 0) {
       $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
       $(this).addClass('selected').find('small').text('Selected!');
@@ -122,11 +171,22 @@
       $(this).parents('.variants-grid').find('select[data-productid]').val(selectednid).attr('selected', true).trigger('change');
     }
   });
+  $(document).on('click', '.select-juices .optsList li', function() {
+    var selectedflength = $('.select-juices .optsList li.juices.selected').length;
+    if (selectedflength < 6) {
+      $(this).toggleClass('selected');
+      $(this).find('small').text($(this).find('small').text() == 'Selected!' ? 'Select' : 'Selected!');
+       return false;
+    } else {
+      var selectedfid = $(this).parents('.productSubsEntry').data('id');
+      $('#'+selectedfid).addClass('selected').show();
+    }
+  });
   $('.select-frequency .optsList li').click(function() {
-    var selectedfid = $(this).parents('.productSubsEntry').data('id');
+    var selectedffid = $(this).parents('.productSubsEntry').data('id');
     $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
     $(this).addClass('selected').find('small').text('Selected!');
-    $('#'+selectedfid).addClass('selected').show();
+    $('#'+selectedffid).addClass('selected').show();
     $('.rc_select__frequency').val($(this).data('val')).trigger('change');
   });
 </script>

@@ -1,0 +1,540 @@
+<link href="{{'adamtheme.css' | asset_url}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{'codehouse.css' | asset_url}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{'custom.css' | asset_url}}" rel="stylesheet" type="text/css" media="all">
+{% assign collection = collections['gift-subscription'] %}
+<div class="layout__off-canvas__viewport">
+  <div class="layout__off-canvas__main-content">
+    <main role="main" class="layout__main-content">
+      {% comment %}
+      <section class="image-bg sub overlay pt80 pb80 pt-xs-180 pb-xs-180">
+        <div class="background-image-holder" style="background: url({{section.settings.bg_image | img_url:'master'}});">
+          <img alt="image" class="background-image3" src="{{section.settings.bg_image | img_url:'master'}}" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <h1 class="advpackcervo text-center"><span >{{section.settings.Banner_text}}</span></h1>
+              <h4 class="advpackcervo5 text-center">{{section.settings.Banner_text2}}</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endcomment %}
+      <section class="how-to-sub">
+       
+        <div class="container how-to-subscribe">
+         <div class="row"> 
+            <div class="col-md-6 col-sm-12 col-md-offset-3 mt40">
+            <p class="mb64 text-center">{{section.settings.main-para}}</p>
+            </div>
+          </div>       
+          <div class="col-md-12 col-sm-12 text-center mb30">
+            <h1 class="text-center">{{section.settings.subscribe}}</h1>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="sub-img"><img src="{{section.settings.img_one | img_url: '180x'}}"></div>
+              <div class="sub-para text-center"><p>{{section.settings.ab1}}</p></div>
+            </div>
+            
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="sub-img"><img src="{{section.settings.img_two | img_url: '180x'}}"></div>
+              <div class="sub-para text-center"><p>{{section.settings.ab2}}</p></div>
+            </div>
+            
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="sub-img"><img src="{{section.settings.img_three | img_url: '180x'}}"></div>
+              <div class="sub-para text-center"><p>{{section.settings.ab3}}</p></div>
+            </div>
+            
+          </div>
+                      
+          <div class="text-center order-btn">
+            <a class="advpackcervo2 text-center order-btn" id="order-buttonn">{{section.settings.btn_txt}}</a>
+          </div>
+        
+        </div>
+      </section>
+      <section class="pb0 twobyadventure">
+        <div class="container horzlinetwo">
+		{%comment%}
+          <div class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6" style="padding:0">
+            <div class="horizlinetop2 hlttwo"></div>
+          </div>
+          <div class="hidden-xs linesheader col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+            <div class="linehorz"></div>
+            <div class="linevertL"></div>
+            <div class="linevertR"></div>
+          </div>
+          <div class="img-block col-xs-12 col-sm-6 col-md-6 text-center">
+            <h1 class="advpackcervo2 text-center">{{section.settings.heading_one}}</h1>
+            <a href="{{section.settings.btn1_url}}" class="buynowbutton2">{{section.settings.btn1_txt}}</a>
+            <br><br>
+            <p class="text-center">{{section.settings.para_one}}</p>
+            <p class="text-center"><strong>{{section.settings.para_two}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.para_three}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.para_four}}</strong></p>
+          </div>
+          <div class="img-block col-xs-12 col-sm-6 col-md-6 text-center">
+            <h1 class="advpackcervo2 text-center">{{section.settings.heading_one}}</h1>
+            <a href="{{section.settings.btn2_url}}" class="buynowbutton2">{{section.settings.btn2_txt}}</a>
+            <br><br>
+            <p class="text-center">{{section.settings.paraa_one}}</p>
+            <p class="text-center"><strong>{{section.settings.paraa_two}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.paraa_three}}</strong></p>
+            <p class="text-center"><strong>{{section.settings.para_four}}</strong></p>
+          </div>{%endcomment%}
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<div class="productSubsBox tab none" >
+  <div class="productSubsEntryBox inner">
+    <div class="productSubsEntry select-product" id="option1">
+      <h4><i>1</i>Pick Your Product</h4>
+      <ul class="optsList">
+        {% for product in collection.products %}
+        <li class="selector" data-id="selected-{{product.id}}" data-val="{{product.title}}" data-image="{{ product.featured_image | img_url: 'large' }}">
+          <a href="#selected-{{product.id}}" class="pro-button">
+            <i style="background: url({{ product.featured_image | img_url: 'large' }});"></i>
+            <strong>{{product.title | remove: ' - Subscription'}}</strong>
+            <small>Select</small>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% for product in collection.products %}{% assign count = forloop.index | plus: 1 %}
+    <div class="variants-grid" id="selected-{{product.id}}" style="display: none;">
+      {%assign product-id = product.id | prepend: 'AddToCartForm-'%}
+      {% form 'product', product, data-productid: product.id, id: product-id %}<!-- Begin ReCharge code -->
+      {% if product.available %}{% include 'subscription-product' %}{% endif %}<!-- End ReCharge code -->
+      <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="needsclick product-single__variants original-select no-js" autocomplete="off">{% for variant in product.variants %}{% if variant.available %}
+        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-title="{{ variant.title }}" data-orignalvalue="{{ variant.metafields.subscriptions.discount_variant_id }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>{% else %}
+        <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>{% endif %}{% endfor %}
+      </select>
+      {% for option in product.options %}{% assign count = forloop.index | plus: 1 %}{% assign option_index = forloop.index0 %}{% assign option_index_next = forloop.index0 | plus: 1 %}
+      <div class="productSubsEntry select-variant" data-id="selected-{{product.id}}-{{count}}-{{option_index_next}}" data-option="option{{count}}"{% if forloop.first %}{% else %} style="display: none;"{% endif %}>
+        <h4><i>{{count}}</i>{{ option | replace: 'Quantity','Pick Quantity' }}</h4>
+        <ul class="optsList">{% assign values = '' %}{% for variant in product.variants %}{% assign value = variant.options[option_index] %}{% unless values contains value %}{% assign values = values | join: ',' %}{% assign values = values | append: ',' | append: value %} {% assign values = values | split: ',' %}
+          <li class="selector" data-id="selected-{{product.id}}" data-val="{{ variant.id }}" data-price="{{ variant.price | money}}" data-image="{{ variant.image | img_url: 'large' }}">
+            <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+              <i style="background: url({{ variant.image | img_url: 'large' }});"></i>
+              <strong>{{ value | escape }}</strong>
+              <small>Select</small>
+            </a>
+          </li>{% endunless %}{% endfor %}
+        </ul>
+      </div>
+      {% if product.title contains 'Custom Juice Pack' and forloop.last %}
+      <div class="productSubsEntry select-juices" data-id="selected-{{product.id}}-frequency" id="selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" style="display:none;">
+      <h4><i>{{count | plus: 1}}</i>Choose 6 Flavors</h4>
+      <input class="flavors" id="selected-flavors" type="hidden" name="properties[Chosen Flavors]" value="">
+      <ul class="optsList">
+        <li class="juices" data-val="Sunny Citrus" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/SunnyCitrus_V2.png?v=1581339704);"></i><strong>Sunny Citrus</strong><p>Carrot, Apple, Pineapple, Turmeric, Lemon, Ginger</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="PUR Greens" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/greens_V2.png?v=1581339704);"></i><strong>PUR Greens</strong><p>Cucumber, Kale, Celery, Apple, Lemon, Ginger</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Raw Red" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/Blush_Blend_V2.png?v=1581339703);"></i><strong>Raw Red</strong><p>Cucumber, Carrot, Beet, Apple, Lemon, Ginger</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Blue Chia" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/PUR_Blue_Majik_V2.png?v=1581339703);"></i><strong>Blue Chia</strong><p>Pineapple, Apple, Blue Spirulina, Chia Seeds</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Pineapple Mint" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/Pineapple_Mint_V2.png?v=1581339704);"></i><strong>Pineapple Mint</strong><p>Pineapple, Apple, Mint</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Blue Lemonade" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/bluelemonade_V2.png?v=1581339703);"></i><strong>Blue Lemonade</strong><p>Lemon, Blue Majik Spirulina, Agave, Filtered H20</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Charcoal Lemonade" data-image="{{'2weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/CharcoalLemon_V2.png?v=1581339703);"></i><strong>Charcoal Lemonade</strong><p>Lemon, Activated Charcoal, Ginger, Agave, Filtered H20</p><small>Select</small>
+          </a>
+        </li>
+        <li class="juices" data-val="Turmeric Lemonade" data-image="{{'4weeks.jpg' | asset_url}}">
+          <a href="#selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}" class="pro-button">
+            <i style="background: url(https://cdn.shopify.com/s/files/1/0300/3219/9724/files/TurmericLemon_V2.png?v=1581339704);"></i><strong>Turmeric Lemonade</strong><p>Lemon, Turmeric, Ginger, Agave, Filtered H20</p><small>Select</small>
+          </a>
+        </li>
+      </ul>
+      </div>
+      {% endif %}
+      {% if forloop.last%}
+      <div class="productSubsEntry select-frequency" data-id="selected-{{product.id}}-finalize" id="{% if product.title contains 'Custom Juice Pack' %}selected-{{product.id}}-frequency{%else%}selected-{{product.id}}-{{count}}-{{option_index_next | plus: 1}}{%endif%}" style="display:none;">
+      <h4><i>{{count | plus: 1}}</i>Choose Frequency</h4>
+      <ul class="optsList">
+        <li class="frequency 2week" data-id="selected-{{product.id}}" data-val="2" data-image="{{'Biweekly-icon.png' | asset_url}}">
+          <a href="#selected-{{product.id}}-finalize" class="pro-button">
+            <i style="background: url({{'Biweekly-icon.png' | asset_url}});"></i><strong>Bi-Weekly</strong><small>Select</small>
+          </a>
+        </li>
+        <li class="frequency 4weeks" data-id="selected-{{product.id}}" data-val="4" data-image="{{'Monthly-Icon.png' | asset_url}}">
+          <a href="#selected-{{product.id}}-finalize" class="pro-button">
+            <i style="background: url({{'Monthly-Icon.png' | asset_url}});"></i><strong>Monthly</strong><small>Select</small>
+          </a>
+        </li>
+      </ul>
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div class="productSubsEntry inner" id="selected-{{product.id}}-finalize" style="display:none;">
+        <h4><i>4</i> Order Summary</h4>
+        <div class="manageWrap">
+          <div class="manageBox">
+            <ul>
+              <li class="aa opt1 selector selector selected" id="selected-{{product.id}}-product">
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Your Product</strong></dt><dd><a href="#option1" class="option1">Change Product</a></dd></dl>
+              </li>
+              <li class="aa opt2 selector selector selected"  id="selected-{{product.id}}-quantity">
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Pick Quantity</strong></dt><dd><a href="#" class="option2">Change Days/Quantity</a></dd></dl>
+              </li>
+              <li class="aa opt5 selector frequency selected" id="selected-{{product.id}}-frequencyy">
+                <dl><i style="background: url({{'4weeks.jpg' | asset_url}});"></i><dt><strong>Choose Frequency</strong></dt><dd><a href="#" class="option5">Change Frequency</a></dd></dl>
+              </li>
+            </ul>
+          </div>
+          <div class="totalBox">
+            <dl><dt>Order Price:</dt>
+              <dd><span class="total-amount"><em class="t1 money">{{product.price | money}}</em></span>
+              <small class="gift-subscription-shipment" style="display: none;">Per Shipment</small></dd>
+            </dl>
+            <dl style="display:none">
+              <dt>Tax:</dt>
+              <dd>$<em class="t2">0.00</em></dd>
+            </dl>
+            <dl>
+              <dt>Shipping:</dt>
+              <dd><em>FREE</em><em class="t3" style="display: none">0.00</em></dd>
+            </dl>
+            <hr>
+            <dl class="total">
+              <dt>Total:</dt><dd><span><em class="t4 money">{{product.price | money}}</em></span><small class="subsMe">Per Shipment</small></dd>
+            </dl>
+            <button type="submit" class="subsMainBtn">Add to Cart</button>
+            <div class="gift-box-chk">
+            <label for="chkgift"><input type="checkbox" id="chkgift-{{product.id}}" />Is this a gift ?</label>
+            </div>
+            <div id="gift_note-{{product.id}}" class="gift_note" style="display: none">
+            	<textarea rows="4" class="gift_note" name="properties[Gift Message]" placeholder="Enter your gift message..."></textarea>
+            </div>
+            <small class="subsMe2">You'll be able to manage this subscription and change or cancel at any time.</small>
+          </div>
+        </div>
+      </div>
+      {% endform %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function() {
+    $("#order-buttonn").click(function() {
+        var test = $(this).val();
+        $("div.productSubsBox.tab").show().removeClass('none');
+    }); {% for product in collection.products %}
+    $("#chkgift-{{product.id}}").click(function () {
+        if ($(this).is(":checked")) {
+           $("#gift_note-{{product.id}}").show();
+        } else {
+            $("#gift_note-{{product.id}}").hide();
+        }
+    }); {% endfor %}
+  });
+  var scroll = new SmoothScroll('a[href*="#"]', { speed: 800, speedAsDuration: true, offset: 100, updateURL: false });
+  $('.select-product .optsList li').click(function() {
+    var selectedid = $(this).data('id');
+    $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
+    $(this).addClass('selected').find('small').text('Selected!');
+    $('.variants-grid').removeClass('selected').hide();
+    $('#'+selectedid).addClass('selected').show();
+    $('#'+selectedid+'-product i').css('background-image', 'url('+$(this).data('image')+')');
+  });
+  $('.select-variant .optsList li').click(function() {
+    var selectedvid = $(this).parents('.productSubsEntry').next('.productSubsEntry');
+    var selectednid = $(this).data('val');
+    var selectedprice = $(this).data('price');
+    //$('#'+selectedid+'-quantity i').css('background-image', 'url('+$(this).data('image')+')');
+    //$('#'+selectednid+'-product a').attr('href', '#'+selectednid);
+    if(selectedvid.length > 0) {
+      $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
+      $(this).addClass('selected').find('small').text('Selected!');
+      selectedvid.addClass('selected').show();
+      $(this).parents('.variants-grid').find('select[data-productid]').val(selectednid).attr('selected', true).trigger('change');
+      var selectedid = $(this).data('id');
+      $('#'+selectedid+'-quantity i').css('background-image', 'url('+$(this).data('image')+')');
+      $('#'+selectedid+'-quantity a').attr('href', '#'+selectedid);
+      var selectedidprice = $(this).data('price');
+      $('#'+selectedid+'-finalize .total-amount .money').text(selectedidprice);
+      $('#'+selectedid+'-finalize .total .money').text(selectedidprice);
+      
+    }
+  });
+  $(document).on('click', '.select-juices .optsList li', function() {
+    var selectedflength = $('.select-juices .optsList li.juices.selected').length;
+    if (selectedflength == 5) {
+      var selectedfid = $(this).parents('.productSubsEntry').data('id');
+      $(this).parents('.productSubsEntry').find('a').attr('href', '#'+selectedfid);
+      $('#'+selectedfid).addClass('selected').show();
+    }
+    if (selectedflength < 6) {
+      $(this).toggleClass('selected');
+      $(this).find('small').text($(this).find('small').text() == 'Selected!' ? 'Select' : 'Selected!');
+       return false;
+    } else {
+      $(document).on('click', '.select-juices .optsList li.selected', function() {
+        $(this).toggleClass('selected');
+        $(this).find('small').text($(this).find('small').text() == 'Selected!' ? 'Select' : 'Selected!');
+      });
+      var selectedfid = $(this).parents('.productSubsEntry').data('id');
+      $(this).parents('.productSubsEntry').find('a').attr('href', '#'+selectedfid);
+      $('#'+selectedfid).addClass('selected').show();
+    }
+    var selectedflavors = [];
+    $('.select-juices .optsList li.selected').each(function () {
+        selectedflavors.push($(this).data('val'));
+    });
+    $('#selected-flavors').val(selectedflavors);
+  });
+  $('.select-frequency .optsList li').click(function() {
+    var selectedffid = $(this).parents('.productSubsEntry').data('id');
+    $(this).parents('.productSubsEntry').find('li').removeClass('selected').find('small').text('Select');
+    $(this).addClass('selected').find('small').text('Selected!');
+    $('#'+selectedffid).addClass('selected').show();
+     var selectedid = $(this).data('id');
+    $('#'+selectedid+'-frequencyy i').css('background-image', 'url('+$(this).data('image')+')');
+    $('#'+selectedid+'-frequencyy a').attr('href', '#'+selectedid+'-finalize');
+    $('.rc_select__frequency').val($(this).data('val')).trigger('change');
+  });
+  
+</script>
+
+<style>
+  .sub-para {
+    margin-top: 20px;
+}
+  .sub-img img {
+    max-height: 109px;
+}
+  .sub span {
+    color: black;
+    font-weight: bold;
+	}
+  .sub h4 {
+    color: black;
+	}
+  .how-to-sub h1 {
+      font-size: 24px;
+      font-weight: 700;
+  }
+  .none{
+  	display:none;
+  } 
+.order-btn{
+  margin-top:30px;
+  }
+  
+	a.order-btn {
+      font-size: 20px;
+      padding: 15px 30px;
+      border: solid 2px;
+      border-radius: 35px;
+      width: 100%;
+      cursor: pointer;
+      max-width: 150px;
+}
+  a.order-btn:hover {
+    background: #92981e;
+    color: #fff;
+    border-color: #92981e;
+    text-decoration: none;
+}
+#rc_container, .product-single__variants {
+    display: none !important;
+    margin: 0 auto !important;
+    width: 250px !important;
+}
+button.subsMainBtn {
+    margin-bottom: 25px;
+}
+a.pro-button {
+    text-decoration: blink;
+    display: block;
+    width: 100%;
+}
+</style>
+{% schema %}
+  {
+    "name": "Subscription Page",
+    "settings": [
+		{
+		"type": "image_picker",
+		"id": "bg_image",
+		"label": "Banner Image"
+		},
+		{
+		"type": "text",
+		"id": "Banner_text",
+		"label": "Banner Text",
+		"default": "Subscribe & Save"
+		},
+		{
+		"type": "text",
+		"id": "Banner_text2",
+		"label": "Banner Text",
+		"default": "Pur-Cold Pressed delivered."
+		},
+		{
+		"type": "text",
+		"id": "subscribe",
+		"label": "Subscribe Heading",
+		"default": "How to Subscribe"
+		},
+		{
+		"type": "image_picker",
+		"id": "img_one",
+		"label": "First Step Image"
+		},
+		{
+		"type": "textarea",
+		"id": "ab1",
+		"label": "Step 1"
+		},
+		{
+		"type": "image_picker",
+		"id": "img_two",
+		"label": "Second Step Image"
+		},
+		{
+		"type": "textarea",
+		"id": "ab2",
+		"label": "Step 2"
+		},
+		{
+		"type": "image_picker",
+		"id": "img_three",
+		"label": "Third Step Image"
+		},
+		{
+		"type": "textarea",
+		"id": "ab3",
+		"label": "Step 1"
+		},
+		{
+		"type": "textarea",
+		"id": "main-para",
+		"label": "Description",
+		"default": "We’ve created a much easier way for you to get that juice fix. Our subscription service allows you to select your fave PUR product and frequency so a freshly pressed pack of juice appears at your door when you want it."
+		},
+		{
+		"type": "text",
+		"id": "btn_txt",
+		"label": "Order Button",
+		"default": "Order Now"
+		},
+		{
+		"type": "url",
+		"id": "btn_url",
+		"label": "Button Link"
+		},
+		{
+		"type": "text",
+		"id": "heading_one",
+		"label": "Heading 1",
+		"default": "Subscribe to Verve"
+		},
+		{
+		"type": "text",
+		"id": "btn1_txt",
+		"label": "Button 1 Text",
+		"default": "GET STARTED"
+		},
+		{
+		"type": "url",
+		"id": "btn1_url",
+		"label": "Button 1 Link"
+		},
+		{
+		"type": "textarea",
+		"id": "para_one",
+		"label": "About 1",
+		"default": "Never run out of coffee again."
+		},
+		{
+		"type": "textarea",
+		"id": "para_two",
+		"label": "About 2",
+		"default": "Customize your order"
+		},
+		{
+		"type": "textarea",
+		"id": "para_three",
+		"label": "About 3",
+		"default": "Set up a recurring payment"
+		},
+		{
+		"type": "textarea",
+		"id": "para_four",
+		"label": "About 4",
+		"default": "Ship on your schedule"
+		},
+		{
+		"type": "text",
+		"id": "heading_two",
+		"label": "Heading 2",
+		"default": "SEND A GIFT"
+		},
+		{
+		"type": "text",
+		"id": "btn2_txt",
+		"label": "Button 2 Text",
+		"default": "GET STARTED"
+		},
+		{
+		"type": "url",
+		"id": "btn2_url",
+		"label": "Button 2 Link"
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_one",
+		"label": "About 1",
+		"default": "Treat your coffee-loving friends."
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_two",
+		"label": "About 2",
+		"default": "Customize their order"
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_three",
+		"label": "About 3",
+		"default": "Pay upfront"
+		},
+		{
+		"type": "textarea",
+		"id": "paraa_four",
+		"label": "About 4",
+		"default": "Include a gift note"
+		}
+]
+  }
+{% endschema %}
